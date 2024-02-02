@@ -1,4 +1,5 @@
 #include "sort.h"
+#include <stdio.h>
 
 /**
  * selection_sort - function that sorts an array of integers
@@ -8,21 +9,19 @@
 
 void selection_sort(int *array, size_t size)
 {
-	int small, tmp;
-	size_t i, j;
+	size_t i, j, tmp, small_index;
 
 	for (i = 0; i < size; i++)
 	{
-		small = array[i];
+		small_index = i;
 		for (j = i + 1; j < size; j++)
+			if (array[j] < array[small_index])
+				small_index = j;
+		if (small_index != i)
 		{
-			if (small > array[j])
-			{
-				small = array[j];
-				tmp = array[i];
-				array[i] = small;
-				array[j] = tmp;
-			}
+			tmp = array[small_index];
+			array[small_index] = array[i];
+			array[i] = tmp;
 		}
 		print_array(array, size);
 	}
